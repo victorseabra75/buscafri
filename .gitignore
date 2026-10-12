@@ -52,3 +52,6 @@ rclone.conf
 # Ignorar chaves SSH locais
 deploy_key
 deploy_key.pub
+
+.continue/
+config.yaml

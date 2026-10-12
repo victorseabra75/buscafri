@@ -135,3 +135,19 @@ Decisões tomadas
 Riscos/bloqueios
 Próximo passo
 ```
+
+### Protocolo Obrigatório de Relatório de Encerramento (Pós-Tarefa)
+
+Ao final de cada tarefa, o agente deve registrar:
+
+1. **Comprovação de Execução e Skills**
+   - **Skills consultadas**: nomes e motivo da consulta.
+   - **Skills efetivamente aplicadas**: nome e evidência concreta de aplicação.
+   - **Arquivos alterados**: lista dos arquivos modificados.
+   - **Comandos executados**: comandos completos e resultados reais.
+   - **Testes executados**: quantidade, resultado e escopo.
+   - **Testes ignorados ou não executados**: motivo explícito.
+   - **Validações de segurança**: verificações realmente executadas e limitações.
+   - **Limitações e riscos remanescentes**: itens não verificados ou dependentes de ambiente externo.
+   - **Documentação atualizada**: arquivos alterados ou justificativa para não alterar.
+   - **Ações não realizadas**: informar explicitamente quando não houve push, deploy ou acesso ao R2.

@@ -49,3 +49,4 @@ Este relatório consolida divergências encontradas entre os documentos de gover
 | Firewall | Liberação de portas de produção mencionada como etapa | Não verificável sem VPS ativa | Não verificado |
 | Domínio/HTTPS | Planejamento de publicação | Domínio e SSL/TLS ainda não configurados | Pendente |
 | Performance produção | Pode haver expectativa de operação real | Latência API → R2 não validada em VPS real | Não verificado |
+| Testes de API Falhando | Histórico afirmava 8 testes falhando na TASK-05 | Execução em 2025-05-23 (`pytest -v tests/test_api*.py tests/test_partitioned_api.py`) resultou em 13 testes aprovados. Causa histórica das 8 falhas permanece inconclusiva | Divergência Histórica Registrada |

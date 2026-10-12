@@ -45,6 +45,7 @@
 - [x] Criação e refinamento do Pipeline GitHub Actions (`.github/workflows/deploy.yml`).
 - [x] Autenticação via SSH com chaves de deploy e injeção de segredos (`VPS_IP`, `SSH_PRIVATE_KEY`, `RCLONE_CONF`).
 - [x] Pipeline 100% automatizado: `git push` valida linters, testes, puxa código na VPS, injeta credenciais do R2, sincroniza dependências com `uv sync` e reinicia os serviços em segundo plano.
+- [x] Validação da integridade da suíte de testes de API e ETL (Diagnóstico local em 2025-05-23).
 
 ---
 
@@ -58,12 +59,16 @@
 
 ---
 
-## 4. Próxima Task (A Fazer Agora)
-**[TICKET-07]: Validação em Ambiente de Produção (VPS)**
-- [x] Verificar sucesso do deploy (GitHub Actions).
-- [x] Validar persistência do Rclone (monitoramento de logs).
-- [ ] Liberar porta 8501 no Firewall da GCP.
-- [ ] Realizar smoke tests na API e UI remota.
+## 4. Próxima Sequência Operacional (Backlog Atualizado)
+Conforme as diretrizes de governança e o planejamento atual, a prioridade absoluta é a execução das **6 Tasks Operacionais**:
+1. **TASK-01**: Validar os dados locais (`NEEDS_VALIDATION` - Estrutura de 28 partições `uf={UF}` e 37 Parquets confirmados; integridade e ordenação pendentes).
+2. **TASK-02**: Publicar os arquivos no Cloudflare R2 (Requer inspeção previa, dry-run e plano de recuperação antes do upload).
+3. **TASK-03**: Validar o Data Lake remoto.
+4. **TASK-04**: Validar os testes de integração.
+5. **TASK-05**: **CONCLUÍDO**: Suíte validada localmente (13 testes API + 3 testes ETL aprovados). O registro anterior de 8 testes falhando não foi reproduzido e sua causa permanece inconclusiva.
+6. **TASK-06**: Validar CI/CD e publicar as alterações.
+
+*(O backlog detalhado de engenharia e tarefas futuras encontra-se em `.agents/tasks.md`)*
 
 ---
 
@@ -105,8 +110,9 @@
 
 ### Testes
 - Suíte atual com 17 testes;
-- Testes de API, particionamento, R2 e ETL;
-- Testes de integração dependem parcialmente de dados Parquet locais reais.
+- Status atual: 13 testes de API e 3 testes de ETL validados localmente (Ambiente: Windows, Python 3.13.5, Pytest 9.1.1 em 2025-05-23).
+- O teste de integração R2 (`tests/test_r2_connection.py`) não foi executado nesta validação.
+- O registro anterior de oito testes de API falhando não foi reproduzido; divergência registrada como inconclusiva.
 
 ### Limitações conhecidas
 - Cobertura limitada de configuração local/produção;

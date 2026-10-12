@@ -22,6 +22,32 @@ O projeto segue a regra: **Ler → Entender → Verificar → Planejar → Imple
 | Infra | `CONTEXT.md` + workflows + scripts |
 | Bug | Skill diagnóstico + código/teste relacionado |
 
+### Catálogo Oficial de Skills do BuscaFri
+As skills oficiais e validadas para este projeto são:
+- `buscafri-planner`: Planejamento de funcionalidades, pesquisa de esquemas e geração de PRDs/Specs.
+- `buscafri-executor-qa`: Execução de tickets individuais, TDD e validação de QA com Pytest.
+- `diagnosing-bugs`: Diagnóstico estruturado em 6 fases para bugs complexos e regressões.
+- `tdd`: Referência metodológica para o ciclo Red-Green-Refactor e seams de teste.
+- `code-review`: Revisão de diffs em dois eixos (Standards e Spec), com adaptação local para ausência de issue tracker externo.
+- `buscafri-duckdb-r2`: Consultas analíticas, ETL, Parquet e acesso remoto ao Cloudflare R2.
+- `buscafri-security`: Segurança de aplicação, secrets, validação de entradas e proteção de infra/CI-CD.
+- `buscafri-fastapi`: Desenvolvimento consistente do backend, rotas e contratos da API.
+- `buscafri-git-ci`: Gestão de alterações, qualidade automatizada e integridade do pipeline.
+- `buscafri-documentation`: Manutenção de SPEC, STATUS, TASKS e ADRs.
+
+### Roteador de Contexto
+| Tipo | Contexto inicial sugerido | Skill Recomendada |
+| :--- | :--- | :--- |
+| Planejamento / Spec | `CONTEXT.md` + `SPEC.md` | `buscafri-planner` |
+| Backend / API | `CONTEXT.md` + código/testes | `buscafri-fastapi`, `buscafri-executor-qa`, `tdd` |
+| ETL / Dados / R2 | `CONTEXT.md` + scripts ETL + testes | `buscafri-duckdb-r2`, `buscafri-executor-qa` |
+| Frontend / UI | `CONTEXT.md` + código UI | `buscafri-executor-qa` |
+| Infra / CI-CD | `CONTEXT.md` + workflows + scripts | `buscafri-git-ci`, `buscafri-security` |
+| Segurança / Secrets | `.env` + workflows + ADRs | `buscafri-security` |
+| Diagnóstico de Bug | Skill diagnóstico + código/teste relacionado | `diagnosing-bugs`, `tdd` |
+| Code Review | Diff atual + padrões do projeto | `code-review` |
+| Documentação | `PROJECT_STATUS.md` + `tasks.md` | `buscafri-documentation` |
+
 ## 3. Fontes de Verdade
 Consulte `docs/SOURCE_OF_TRUTH.md`. Se houver divergência entre documentação e implementação: **não corrija automaticamente**. Registre, verifique código/testes e, se persistir, marque como **NÃO VERIFICADO**.
 

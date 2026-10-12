@@ -1,4 +1,5 @@
 import io
+import logging
 
 import pandas as pd
 from fastapi import APIRouter, HTTPException, Query, Request
@@ -9,6 +10,8 @@ from slowapi.util import get_remote_address
 from app.core.config import settings
 from app.core.database import db_client
 from app.schemas.empresa import EmpresaResponse
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 limiter = Limiter(
@@ -37,6 +40,9 @@ async def buscar_empresas(
     request: Request,
     uf: str | None = Query(
         None,
+        min_length=2,
+        max_length=2,
+        pattern="^[A-Za-z]{2}$",
         description="Sigla do estado (ex: BA)",
     ),
     municipio: str | None = Query(
@@ -183,10 +189,13 @@ async def buscar_empresas(
             "data": data,
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
+        logger.error("Erro inesperado na busca: %s", e)
         raise HTTPException(
             status_code=500,
-            detail=f"Erro na consulta: {e!s}",
+            detail="Erro interno ao processar a consulta",
         ) from e
 
 
@@ -329,8 +338,11 @@ async def exportar_dados(
             },
         )
 
+    except HTTPException:
+        raise
     except Exception as e:
+        logger.error("Erro inesperado na exportação: %s", e)
         raise HTTPException(
             status_code=500,
-            detail=f"Erro na exportação: {e!s}",
+            detail="Erro interno ao processar a exportação",
         ) from e
