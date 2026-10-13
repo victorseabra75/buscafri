@@ -1,3 +1,4 @@
+import logging
 import os
 from typing import Any
 
@@ -5,6 +6,8 @@ import duckdb
 from dotenv import load_dotenv
 
 load_dotenv()
+
+logger = logging.getLogger(__name__)
 
 
 class DuckDBClient:
@@ -61,11 +64,11 @@ class DuckDBClient:
             self.conn.execute("SET s3_url_style='path';")
             self.conn.execute("SET s3_region='auto';")
 
-            print("[OK] Conectado ao DuckDB com suporte ao Cloudflare R2 S3")
+            logger.info("Conectado ao DuckDB com suporte ao Cloudflare R2 S3")
 
-        except Exception as e:  # noqa: BLE001
+        except Exception:  # noqa: BLE001
             self.conn = None
-            print(f"[ERRO] Erro ao conectar ao DuckDB: {e}")
+            logger.error("Erro ao conectar ao DuckDB")
 
     def query(self, sql: str):
         if self.conn is None:

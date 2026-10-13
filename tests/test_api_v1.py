@@ -112,5 +112,3 @@ def test_exportar_dados_falha_duckdb_mensagem_generica(monkeypatch):
         assert response.status_code == 500
         assert "FATAL_SECRET_LEAK_EXPORT_PATH_999" not in response.text
         assert response.json()["detail"] == "Erro interno ao processar a exportação"
-
-

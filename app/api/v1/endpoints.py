@@ -192,7 +192,7 @@ async def buscar_empresas(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error("Erro inesperado na busca: %s", e)
+        logger.error("Erro inesperado na busca")
         raise HTTPException(
             status_code=500,
             detail="Erro interno ao processar a consulta",
@@ -341,7 +341,7 @@ async def exportar_dados(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error("Erro inesperado na exportação: %s", e)
+        logger.error("Erro inesperado na exportação")
         raise HTTPException(
             status_code=500,
             detail="Erro interno ao processar a exportação",
