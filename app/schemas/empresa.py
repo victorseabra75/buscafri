@@ -17,6 +17,7 @@ class EmpresaBase(BaseModel):
 
 class EmpresaResponse(BaseModel):
     total_count: int
-    page: int
+    page: int | None = None
     limit: int
+    next_cursor: str | None = None
     data: list[EmpresaBase]

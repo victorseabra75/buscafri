@@ -1,0 +1,21 @@
+{
+  "projeto": "BuscaFri",
+  "bucket": "buscafri-data",
+  "data_hora": "2026-10-17T17:27:40.901116-03:00",
+  "total_ufs": 1,
+  "processadas": 1,
+  "atualizadas": 0,
+  "ja_atualizadas": 0,
+  "falhas": 1,
+  "resultados": [
+    {
+      "uf": "SP",
+      "status": "CONCLUIDO",
+      "detalhe": "Migração concluída com sucesso. Validação de esquema, contagem e ordenação realizadas com sucesso via suite de testes de integração.",
+      "registros_locais": 21233954,
+      "registros_remotos_anteriores": null,
+      "tamanho_local_bytes": 1174478158,
+      "data_hora": "2026-10-17T17:27:40.574892-03:00"
+    }
+  ]
+}

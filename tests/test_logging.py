@@ -55,7 +55,7 @@ def test_busca_endpoint_logging_and_response(caplog, monkeypatch):
     assert SECRET_SENTINEL not in response.text
 
     # Validações de logging
-    assert "Erro inesperado na busca" in caplog.text
+    assert "Erro ao executar consulta no BuscaFri" in caplog.text
     # O requisito de segurança exige que a sentinela não apareça nos logs
     assert SECRET_SENTINEL not in caplog.text
 
@@ -73,12 +73,14 @@ def test_exportar_dados_logging_and_response(caplog, monkeypatch):
         response = client.get("/api/v1/exportar/csv?uf=BA")
 
     assert response.status_code == 500
-    assert response.json()["detail"] == "Erro interno ao processar a exportação"
+    assert response.json()["detail"] == "Erro interno ao processar a consulta"
 
     # A resposta HTTP nunca deve conter a sentinela
     assert SECRET_SENTINEL not in response.text
 
     # Validações de logging
-    assert "Erro inesperado na exportação" in caplog.text
-    # O requisito de segurança exige que a sentinela não apareça nos logs
+    assert "Erro ao executar consulta no BuscaFri" in caplog.text
+
+    # A mensagem da exceção não pode vazar para os logs
+    assert "Export error with" not in caplog.text
     assert SECRET_SENTINEL not in caplog.text

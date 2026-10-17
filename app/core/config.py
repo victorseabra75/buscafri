@@ -13,6 +13,7 @@ class Settings(BaseSettings):
 
     # Variáveis gerais
     APP_ENV: str = "development"  # development, testing, production
+    APP_SECRET_KEY: str = "dev-secret-keep-it-safe"
 
     # R2 Buckets
     R2_BUCKET_NAME: str = "buscafri-data"

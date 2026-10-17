@@ -60,11 +60,17 @@ def test_busca_paginacao():
     assert response.status_code == 200
     data1 = response.json()
     assert len(data1["data"]) <= 10
+    assert "next_cursor" in data1
 
-    response = client.get("/api/v1/busca?uf=BA&page=2&limit=10")
-    assert response.status_code == 200
-    data2 = response.json()
-    assert data2["page"] == 2
+    if data1["next_cursor"]:
+        response = client.get(
+            f"/api/v1/busca?uf=BA&limit=10&cursor={data1['next_cursor']}"
+        )
+        assert response.status_code == 200
+        data2 = response.json()
+        assert "data" in data2
+        # Verifica se o cursor realmente avançou (não é igual ao anterior)
+        assert data2["data"][0]["cnpj_basico"] != data1["data"][0]["cnpj_basico"]
 
 
 def test_exportar_csv():
