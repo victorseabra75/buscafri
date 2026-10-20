@@ -31,16 +31,10 @@ def test_configurar_duckdb_memoria_e_temp(ambiente_temp_duckdb, monkeypatch):
     conn = configurar_duckdb()
     assert conn is not None
 
-      # Verifica configurações aplicadas
-    resultado_mem = conn.execute(
-        "SELECT current_setting('memory_limit')"
-    ).fetchone()
-    resultado_threads = conn.execute(
-        "SELECT current_setting('threads')"
-    ).fetchone()
-    resultado_temp = conn.execute(
-        "SELECT current_setting('temp_directory')"
-    ).fetchone()
+    # Verifica configurações aplicadas
+    resultado_mem = conn.execute("SELECT current_setting('memory_limit')").fetchone()
+    resultado_threads = conn.execute("SELECT current_setting('threads')").fetchone()
+    resultado_temp = conn.execute("SELECT current_setting('temp_directory')").fetchone()
 
     assert resultado_mem is not None
     assert resultado_threads is not None
@@ -58,7 +52,7 @@ def test_configurar_duckdb_memoria_e_temp(ambiente_temp_duckdb, monkeypatch):
     )
     assert (
         "1" in res_mem or "GB" in res_mem or "8" in res_mem or "MiB" in res_mem
-    )   # Pode ser convertido internamente
+    )  # Pode ser convertido internamente
     assert res_threads == 2 or str(res_threads) == "2"
     assert (
         ambiente_temp_duckdb in res_temp or Path(ambiente_temp_duckdb).name in res_temp

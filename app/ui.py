@@ -110,7 +110,7 @@ if buscar:
 
         if response.status_code == 200:
             data = response.json()
-            st.success(f"Encontrados {data['total_count']} registros!")
+            # st.success(f"Encontrados {data['total_count']} registros!")
 
             if data["data"]:
                 df = pd.DataFrame(data["data"])
@@ -127,8 +127,8 @@ if buscar:
 
                     # Gerar links de download direto da API
                     # Nota: Em streamlit, links diretos funcionam melhor que st.download_button para streaming pesado
-                    st.markdown(f"[📄 Baixar CSV]({csv_url})")
-                    st.markdown(f"[📊 Baixar Excel]({xlsx_url})")
+                    # st.markdown(f"[📄 Baixar CSV]({csv_url})")
+                    # st.markdown(f"[📊 Baixar Excel]({xlsx_url})")
             else:
                 st.warning("Nenhuma empresa encontrada com esses filtros.")
         else:

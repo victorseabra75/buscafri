@@ -299,17 +299,20 @@ async def buscar_empresas(
         False,
         description="Filtrar apenas empresas com e-mail",
     ),
-    page: int = Query(1, ge=1),
-    limit: int = Query(20, ge=1, le=100),
+    limit: int = Query(20, ge=20, le=100),
     cursor: str | None = Query(
         None,
         description="Cursor para keyset pagination",
+    ),
+    include_total: bool = Query(
+        False,
+        description="Se verdadeiro, calcula o total de registros (pode ser lento)",
     ),
 ):
     if local_partition_missing(uf):
         return {
             "total_count": 0,
-            "page": None if cursor else page,
+            "page": None,
             "limit": limit,
             "next_cursor": None,
             "data": [],
@@ -353,65 +356,65 @@ async def buscar_empresas(
     # O cursor usa uma ordenação determinística pelos cinco campos.
     order_sql = ", ".join(f"est.{column} ASC NULLS LAST" for column in SORT_COLUMNS)
 
-    offset_sql = "" if cursor else "OFFSET ?"
-    query_params = list(page_params) + [limit + 1]
-
-    if not cursor:
-        query_params.append((page - 1) * limit)
-
+    # Nova estratégia: Paginação com Subquery (Late Materialization)
+    # 1. Filtra e ordena apenas a tabela de estabelecimentos
+    # 2. Faz JOIN apenas com os resultados da página
     sql = f"""
-        SELECT
+        WITH paginados AS (
+            SELECT
             est.cnpj_basico,
-            emp.razao_social,
             est.nome_fantasia,
             est.situacao_cadastral,
             est.uf,
             est.municipio,
             est.cnae_fiscal_principal,
             est.correio_eletronico,
-            CONCAT(
-                '(',
                 est.ddd_1,
-                ') ',
-                est.telefone_1
-            ) AS telefone_1,
-            est.cnpj_ordem,
-            est.cnpj_dv
-
+                est.telefone_1,
+                est.cnpj_ordem,
+                est.cnpj_dv
         FROM read_parquet(
             {sql_literal(estab_path_pattern)},
             hive_partitioning = true
         ) AS est
-
-        JOIN read_parquet(
-            {sql_literal(empresas_pattern)}
-        ) AS emp
-            ON est.cnpj_basico = emp.cnpj_basico
-
         WHERE {page_where_sql}
-
         ORDER BY {order_sql}
-
         LIMIT ?
-        {offset_sql}
-    """
-
-    count_sql = f"""
-        SELECT COUNT(*) AS total
-
-        FROM read_parquet(
-            {sql_literal(estab_path_pattern)},
-            hive_partitioning = true
-        ) AS est
-
-        WHERE {base_where_sql}
+        )
+        SELECT
+            p.cnpj_basico,
+            emp.razao_social,
+            p.nome_fantasia,
+            p.situacao_cadastral,
+            p.uf,
+            p.municipio,
+            p.cnae_fiscal_principal,
+            p.correio_eletronico,
+            CONCAT('(', p.ddd_1, ') ', p.telefone_1) AS telefone_1,
+            p.cnpj_ordem,
+            p.cnpj_dv
+        FROM paginados p
+        JOIN read_parquet({sql_literal(empresas_pattern)}) AS emp
+            ON p.cnpj_basico = emp.cnpj_basico
+                ORDER BY p.municipio, p.cnae_fiscal_principal, p.cnpj_basico, p.cnpj_ordem, p.cnpj_dv
     """
 
     try:
-        results = db_client.query_params(sql, query_params)
-        total_df = db_client.query_params(count_sql, base_params)
+        # Nota: Como alteramos a query, certifique-se de que query_params está definido corretamente
+        # query_params aqui deve ser exatamente o que a query LIMIT ? espera: [limit + 1]
+        # Adicionamos os parâmetros de filtro que a CTE usa.
+        sql_params = list(page_params) + [limit + 1]
+        results = db_client.query_params(sql, sql_params)
 
-        total = int(total_df.iloc[0]["total"]) if not total_df.empty else 0
+        total = None
+        if include_total:
+            count_sql = f"""
+                SELECT COUNT(*) AS total
+                FROM read_parquet({sql_literal(estab_path_pattern)}, hive_partitioning = true) AS est
+                WHERE {base_where_sql}
+            """
+            total_df = db_client.query_params(count_sql, base_params)
+            total = int(total_df.iloc[0]["total"]) if not total_df.empty else 0
 
         has_more = len(results) > limit
         page_results = results.iloc[:limit].copy()
@@ -430,12 +433,11 @@ async def buscar_empresas(
 
         return {
             "total_count": total,
-            "page": None if cursor else page,
+            "page": None,
             "limit": limit,
             "next_cursor": next_cursor,
             "data": data,
         }
-
     except HTTPException:
         raise
     except (

@@ -24,6 +24,13 @@ class Settings(BaseSettings):
     ESTAB_PATH: str = "data/particionado/estabelecimentos"
     EMPRESAS_PATH: str = "data/processed_corrigido/empresas"
 
+    # Configurações de Observabilidade HTTP (JSONL)
+    LOG_JSON_ENABLED: bool = True
+    LOG_DIR: str = "data/logs"
+    LOG_FILE_NAME: str = "http_access.jsonl"
+    LOG_MAX_BYTES: int = 10 * 1024 * 1024  # 10 MB
+    LOG_BACKUP_COUNT: int = 5
+
     def model_post_init(self, /, __context: Any) -> None:
         # Se for produção, garantimos que os caminhos apontam para o S3
         # caso as variáveis de ambiente não tenham sido injetadas explicitamente.

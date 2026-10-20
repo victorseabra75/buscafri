@@ -1,21 +1,264 @@
 {
   "projeto": "BuscaFri",
   "bucket": "buscafri-data",
-  "data_hora": "2026-10-17T17:27:40.901116-03:00",
-  "total_ufs": 1,
-  "processadas": 1,
-  "atualizadas": 0,
+  "data_hora": "2026-10-18T02:11:45.407047-03:00",
+  "total_ufs": 28,
+  "processadas": 28,
+  "atualizadas": 28,
   "ja_atualizadas": 0,
-  "falhas": 1,
+  "falhas": 0,
   "resultados": [
     {
+      "uf": "AC",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 167930,
+      "registros_remotos_anteriores": 167930,
+      "tamanho_local_bytes": 10135902,
+      "data_hora": "2026-10-17T16:23:38.736578-03:00"
+    },
+    {
+      "uf": "AL",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 696702,
+      "registros_remotos_anteriores": 696702,
+      "tamanho_local_bytes": 37318543,
+      "data_hora": "2026-10-17T16:23:58.384459-03:00"
+    },
+    {
+      "uf": "AM",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 794743,
+      "registros_remotos_anteriores": 794743,
+      "tamanho_local_bytes": 49234502,
+      "data_hora": "2026-10-17T16:24:26.738044-03:00"
+    },
+    {
+      "uf": "AP",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 161673,
+      "registros_remotos_anteriores": 161673,
+      "tamanho_local_bytes": 8967982,
+      "data_hora": "2026-10-17T16:24:37.020234-03:00"
+    },
+    {
+      "uf": "BA",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 3616754,
+      "registros_remotos_anteriores": 3616754,
+      "tamanho_local_bytes": 206568881,
+      "data_hora": "2026-10-17T16:27:57.975915-03:00"
+    },
+    {
+      "uf": "CE",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 2081287,
+      "registros_remotos_anteriores": 2081287,
+      "tamanho_local_bytes": 110471232,
+      "data_hora": "2026-10-17T16:32:19.653645-03:00"
+    },
+    {
+      "uf": "DF",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 1279400,
+      "registros_remotos_anteriores": 1279400,
+      "tamanho_local_bytes": 87999121,
+      "data_hora": "2026-10-17T16:34:29.907813-03:00"
+    },
+    {
+      "uf": "ES",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 1550280,
+      "registros_remotos_anteriores": 1550280,
+      "tamanho_local_bytes": 86383511,
+      "data_hora": "2026-10-17T16:37:09.100922-03:00"
+    },
+    {
+      "uf": "EX",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 173012,
+      "registros_remotos_anteriores": 173012,
+      "tamanho_local_bytes": 6979283,
+      "data_hora": "2026-10-17T16:37:37.328698-03:00"
+    },
+    {
+      "uf": "GO",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 2658100,
+      "registros_remotos_anteriores": 2658100,
+      "tamanho_local_bytes": 163081007,
+      "data_hora": "2026-10-17T16:43:27.957044-03:00"
+    },
+    {
+      "uf": "MA",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 1089670,
+      "registros_remotos_anteriores": 1089670,
+      "tamanho_local_bytes": 60267838,
+      "data_hora": "2026-10-17T16:45:39.816565-03:00"
+    },
+    {
+      "uf": "MG",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 7944168,
+      "registros_remotos_anteriores": 7944168,
+      "tamanho_local_bytes": 399922340,
+      "data_hora": "2026-10-17T17:33:48.043707-03:00"
+    },
+    {
+      "uf": "MS",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 988245,
+      "registros_remotos_anteriores": 988245,
+      "tamanho_local_bytes": 53705508,
+      "data_hora": "2026-10-17T17:36:26.786954-03:00"
+    },
+    {
+      "uf": "MT",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 1422544,
+      "registros_remotos_anteriores": 1422544,
+      "tamanho_local_bytes": 83750509,
+      "data_hora": "2026-10-17T17:39:43.090343-03:00"
+    },
+    {
+      "uf": "PA",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 1485760,
+      "registros_remotos_anteriores": 1485760,
+      "tamanho_local_bytes": 88038366,
+      "data_hora": "2026-10-17T17:43:12.594023-03:00"
+    },
+    {
+      "uf": "PB",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 940312,
+      "registros_remotos_anteriores": 940312,
+      "tamanho_local_bytes": 50017732,
+      "data_hora": "2026-10-17T17:46:01.774694-03:00"
+    },
+    {
+      "uf": "PE",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 2190521,
+      "registros_remotos_anteriores": 2190521,
+      "tamanho_local_bytes": 117004752,
+      "data_hora": "2026-10-17T17:51:38.414107-03:00"
+    },
+    {
+      "uf": "PI",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 630437,
+      "registros_remotos_anteriores": 630437,
+      "tamanho_local_bytes": 34291714,
+      "data_hora": "2026-10-17T17:53:05.324148-03:00"
+    },
+    {
+      "uf": "PR",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 4997055,
+      "registros_remotos_anteriores": 4997055,
+      "tamanho_local_bytes": 266196544,
+      "data_hora": "2026-10-17T19:11:04.430306-03:00"
+    },
+    {
+      "uf": "RJ",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 6216826,
+      "registros_remotos_anteriores": 6216826,
+      "tamanho_local_bytes": 335389153,
+      "data_hora": "2026-10-17T23:07:07.571775-03:00"
+    },
+    {
+      "uf": "RN",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 836586,
+      "registros_remotos_anteriores": 836586,
+      "tamanho_local_bytes": 47320145,
+      "data_hora": "2026-10-17T23:09:43.357431-03:00"
+    },
+    {
+      "uf": "RO",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 510816,
+      "registros_remotos_anteriores": 510816,
+      "tamanho_local_bytes": 29439086,
+      "data_hora": "2026-10-17T23:11:39.356306-03:00"
+    },
+    {
+      "uf": "RR",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 144520,
+      "registros_remotos_anteriores": 144520,
+      "tamanho_local_bytes": 8880254,
+      "data_hora": "2026-10-17T23:12:01.865103-03:00"
+    },
+    {
+      "uf": "RS",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 4990299,
+      "registros_remotos_anteriores": 4990299,
+      "tamanho_local_bytes": 248249630,
+      "data_hora": "2026-10-17T23:29:30.202330-03:00"
+    },
+    {
+      "uf": "SC",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 3581012,
+      "registros_remotos_anteriores": 3581012,
+      "tamanho_local_bytes": 189724698,
+      "data_hora": "2026-10-17T23:44:17.814841-03:00"
+    },
+    {
+      "uf": "SE",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 490075,
+      "registros_remotos_anteriores": 490075,
+      "tamanho_local_bytes": 27060712,
+      "data_hora": "2026-10-17T23:46:45.437991-03:00"
+    },
+    {
       "uf": "SP",
-      "status": "CONCLUIDO",
-      "detalhe": "Migração concluída com sucesso. Validação de esquema, contagem e ordenação realizadas com sucesso via suite de testes de integração.",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
       "registros_locais": 21233954,
-      "registros_remotos_anteriores": null,
+      "registros_remotos_anteriores": 21233954,
       "tamanho_local_bytes": 1174478158,
-      "data_hora": "2026-10-17T17:27:40.574892-03:00"
+      "data_hora": "2026-10-18T02:08:48.277575-03:00"
+    },
+    {
+      "uf": "TO",
+      "status": "PUBLICADA",
+      "detalhe": "Upload concluído e validado por contagem e comparação integral do conteúdo.",
+      "registros_locais": 493466,
+      "registros_remotos_anteriores": 493466,
+      "tamanho_local_bytes": 30279741,
+      "data_hora": "2026-10-18T02:11:42.715078-03:00"
     }
   ]
 }
