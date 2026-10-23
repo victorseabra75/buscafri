@@ -1,3 +1,8 @@
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "buscafri"
 version = "0.1.0"
@@ -40,4 +45,7 @@ sequence = ["fix", "format", "lint", "test"]
 
 [tool.uv]
 managed = true
-package = false
+package = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]

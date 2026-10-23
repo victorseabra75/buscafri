@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     LOG_JSON_ENABLED: bool = True
     LOG_DIR: str = "data/logs"
     LOG_FILE_NAME: str = "http_access.jsonl"
+    LOG_METRICS_FILE_NAME: str = "metrics_logs.jsonl"
     LOG_MAX_BYTES: int = 10 * 1024 * 1024  # 10 MB
     LOG_BACKUP_COUNT: int = 5
 

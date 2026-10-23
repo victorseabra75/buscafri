@@ -12,11 +12,15 @@ client = TestClient(app)
 
 
 def test_busca_uf_ba():
-    response = client.get("/api/v1/busca?uf=BA")
+    response = client.get("/api/v1/busca?uf=BA&include_total=true")
+
     assert response.status_code == 200
     data = response.json()
+
     assert "data" in data
+    assert data["total_count"] is not None
     assert data["total_count"] > 0
+
     for item in data["data"]:
         assert item["uf"] == "BA"
 
@@ -30,9 +34,11 @@ def test_busca_uf_sp():
 
 
 def test_busca_uf_inexistente():
-    response = client.get("/api/v1/busca?uf=ZZ")
+    response = client.get("/api/v1/busca?uf=ZZ&include_total=true")
+
     assert response.status_code == 200
     data = response.json()
+
     assert data["total_count"] == 0
     assert data["data"] == []
 
@@ -56,15 +62,15 @@ def test_busca_uf_cnae():
 
 
 def test_busca_paginacao():
-    response = client.get("/api/v1/busca?uf=BA&page=1&limit=10")
+    response = client.get("/api/v1/busca?uf=BA&page=1&limit=20")
     assert response.status_code == 200
     data1 = response.json()
-    assert len(data1["data"]) <= 10
+    assert len(data1["data"]) <= 20
     assert "next_cursor" in data1
 
     if data1["next_cursor"]:
         response = client.get(
-            f"/api/v1/busca?uf=BA&limit=10&cursor={data1['next_cursor']}"
+            f"/api/v1/busca?uf=BA&limit=20&cursor={data1['next_cursor']}"
         )
         assert response.status_code == 200
         data2 = response.json()

@@ -18,6 +18,8 @@ from app.core.config import settings
 
 # Logger específico e isolado para eventos de acesso HTTP em JSONL
 ACCESS_LOGGER_NAME = "buscafri.http_access"
+# Logger específico e isolado para eventos de interação da UI em JSONL
+METRICS_LOGGER_NAME = "buscafri.metrics"
 
 # Regex para validação de formato seguro de UF (exatamente 2 letras)
 UF_PATTERN = re.compile(r"^[A-Za-z]{2}$")
@@ -141,6 +143,39 @@ def extract_search_metadata(
     }
 
     return filters
+
+
+def log_consolidated_metric(
+    event: str,
+    **metadata: Any,
+) -> None:
+    """Registra uma métrica consolidada no logger de métricas."""
+    logger = logging.getLogger(METRICS_LOGGER_NAME)
+    logger.info(
+        {
+            "event": event,
+            **metadata,
+        }
+    )
+
+
+def log_ui_event(
+    event: str | dict[str, Any],
+    **metadata: Any,
+) -> None:
+    """Registra eventos de interação da interface."""
+    if isinstance(event, dict):
+        payload = event.copy()
+        payload.setdefault("source", "ui")
+    else:
+        payload = {
+            "event": event,
+            "source": "ui",
+            **metadata,
+        }
+
+    logger = logging.getLogger(METRICS_LOGGER_NAME)
+    logger.info(payload)
 
 
 def resolve_normalized_route(request: Request) -> str:

@@ -5,6 +5,7 @@ import hmac
 import io
 import json
 import logging
+import time
 from pathlib import Path
 from typing import Any
 
@@ -35,15 +36,6 @@ limiter = Limiter(
 ESTAB_PATH = settings.ESTAB_PATH
 EMPRESAS_PATH = settings.EMPRESAS_PATH
 R2_PATH = settings.R2_PATH
-
-SORT_COLUMNS = [
-    "municipio",
-    "cnae_fiscal_principal",
-    "cnpj_basico",
-    "cnpj_ordem",
-    "cnpj_dv",
-]
-
 
 # ============================================================
 # FUNÇÕES AUXILIARES
@@ -267,6 +259,14 @@ def unexpected_database_error(error: Exception) -> HTTPException:
 # BUSCA DE EMPRESAS
 # ============================================================
 
+SORT_COLUMNS = [
+    "municipio",
+    "cnae_fiscal_principal",
+    "cnpj_basico",
+    "cnpj_ordem",
+    "cnpj_dv",
+]
+
 
 @router.get("/busca", response_model=EmpresaResponse)
 @limiter.limit("10/minute")
@@ -300,6 +300,10 @@ async def buscar_empresas(
         description="Filtrar apenas empresas com e-mail",
     ),
     limit: int = Query(20, ge=20, le=100),
+    page: int | None = Query(
+        None,
+        description="Parâmetro legado mantido para compatibilidade de testes (ignorado pela paginação por cursor)",
+    ),
     cursor: str | None = Query(
         None,
         description="Cursor para keyset pagination",
@@ -404,7 +408,17 @@ async def buscar_empresas(
         # query_params aqui deve ser exatamente o que a query LIMIT ? espera: [limit + 1]
         # Adicionamos os parâmetros de filtro que a CTE usa.
         sql_params = list(page_params) + [limit + 1]
-        results = db_client.query_params(sql, sql_params)
+        results, db_metrics = db_client.query_params(sql, sql_params)
+
+        # Registra métricas no request.state para o middleware de observabilidade
+        request.state.metrics = {
+            "api_ms": round(
+                (time.perf_counter() - request.scope["start_time"]) * 1000, 2
+            )
+            if "start_time" in request.scope
+            else None,
+            **db_metrics,
+        }
 
         total = None
         if include_total:
@@ -413,8 +427,10 @@ async def buscar_empresas(
                 FROM read_parquet({sql_literal(estab_path_pattern)}, hive_partitioning = true) AS est
                 WHERE {base_where_sql}
             """
-            total_df = db_client.query_params(count_sql, base_params)
+            total_df, _ = db_client.query_params(count_sql, base_params)
             total = int(total_df.iloc[0]["total"]) if not total_df.empty else 0
+        else:
+            total = None
 
         has_more = len(results) > limit
         page_results = results.iloc[:limit].copy()
@@ -522,7 +538,9 @@ async def exportar_dados(
     """
 
     try:
-        df = db_client.query_params(sql, params)
+        df, _ = db_client.query_params(sql, params)
+        # Adiciona métricas se possível (StreamingResponse dificulta medir api_ms total aqui)
+        # mas podemos registrar o tempo do DuckDB.
 
         if formato == "csv":
             csv_content = df.to_csv(

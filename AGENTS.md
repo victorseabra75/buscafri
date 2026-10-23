@@ -160,7 +160,29 @@ Preserve expressamente as seguintes garantias dos documentos originais:
 - Se uma regra não tiver localização óbvia, escolha o documento de responsabilidade mais próximo e evite duplicá-la.
 - Se houver contradições, resolva-as explicitamente e preserve a regra mais segura compatível com a arquitetura existente.
 
-## 7. Validação final
+## 7. Validação de qualidade
+
+Validação de qualidade
+
+Após implementar alterações de código, execute as validações pertinentes ao escopo:
+
+uv run ruff check . --fix — corrigir problemas corrigíveis automaticamente.
+
+uv run ruff format . — aplicar a formatação padronizada.
+
+uv run ruff check . — confirmar que não restam violações do Ruff.
+
+uv run pytest -v — executar a suíte de testes.
+
+Execute os comandos a partir da raiz confirmada do repositório. Antes de comandos que modificam arquivos, verifique git status e preserve alterações preexistentes. Revise o diff após a formatação e correções automáticas.
+
+Se um comando falhar, investigue e corrija a causa quando estiver dentro do escopo autorizado. Não o omita, não enfraqueça testes e não declare a validação concluída sem evidência.
+
+Para alterações exclusivamente documentais, não execute automaticamente ferramentas de formatação de código nem testes da aplicação. Execute as validações documentais pertinentes, incluindo git diff --check, links relativos e revisão integral do diff.
+
+Informe quais comandos foram executados, seus resultados e quaisquer verificações não realizadas.
+
+## 8. Validação final
 
 Execute e informe os resultados reais:
 
@@ -174,7 +196,7 @@ Execute e informe os resultados reais:
 
 Não execute a auditoria do código, testes de produção, operações remotas, commit ou push nesta etapa.
 
-## 8. Entrega
+## 9. Entrega
 
 Informe:
 

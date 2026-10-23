@@ -1,8 +1,10 @@
 import logging
 import os
+import time
 from typing import Any
 
 import duckdb
+import pandas as pd
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -83,14 +85,28 @@ class DuckDBClient:
         self,
         sql: str,
         params: list[Any],
-    ):
+    ) -> tuple[pd.DataFrame, dict[str, float]]:
         if self.conn is None:
             self.connect()
 
         if self.conn is None:
             raise RuntimeError("Não foi possível conectar ao DuckDB.")
 
-        return self.conn.execute(sql, params).df()
+        t0 = time.perf_counter()
+        # execute() no DuckDBPyConnection retorna um DuckDBPyRelation
+        rel = self.conn.execute(sql, params)
+        t1 = time.perf_counter()
+
+        # .df() no DuckDBPyRelation materializa os dados
+        df = rel.df()
+        t2 = time.perf_counter()
+
+        metrics = {
+            "duckdb_execution_ms": round((t1 - t0) * 1000, 2),
+            "duckdb_fetch_ms": round((t2 - t1) * 1000, 2),
+        }
+
+        return df, metrics
 
 
 db_client = DuckDBClient()

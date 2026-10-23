@@ -1,0 +1,8 @@
+{"event": "test_ui_event", "interaction_id": "123-abc", "source": "ui", "timestamp": "2026-10-23T12:34:03.241-03:00", "level": "INFO", "logger": "buscafri.metrics"}
+{"event": {"event": "test_consolidated", "interaction_id": "123-abc"}, "source": "consolidated", "timestamp": "2026-10-23T12:34:03.241-03:00", "level": "INFO", "logger": "buscafri.metrics"}
+{"event": {"event": "test_ui_event", "interaction_id": "123-abc"}, "source": "ui", "timestamp": "2026-10-23T12:37:06.906-03:00", "level": "INFO", "logger": "buscafri.metrics"}
+{"event": {"event": "test_consolidated", "interaction_id": "123-abc"}, "source": "consolidated", "timestamp": "2026-10-23T12:37:06.906-03:00", "level": "INFO", "logger": "buscafri.metrics"}
+{"event": "test_ui_event", "interaction_id": "123-abc", "source": "ui", "timestamp": "2026-10-23T12:37:53.638-03:00", "level": "INFO", "logger": "buscafri.metrics"}
+{"event": {"event": "test_consolidated", "interaction_id": "123-abc"}, "source": "consolidated", "timestamp": "2026-10-23T12:37:53.639-03:00", "level": "INFO", "logger": "buscafri.metrics"}
+{"event": "test_ui_event", "interaction_id": "123-abc", "source": "ui", "timestamp": "2026-10-23T12:39:17.343-03:00", "level": "INFO", "logger": "buscafri.metrics"}
+{"event": {"event": "test_consolidated", "interaction_id": "123-abc"}, "source": "consolidated", "timestamp": "2026-10-23T12:39:17.344-03:00", "level": "INFO", "logger": "buscafri.metrics"}
